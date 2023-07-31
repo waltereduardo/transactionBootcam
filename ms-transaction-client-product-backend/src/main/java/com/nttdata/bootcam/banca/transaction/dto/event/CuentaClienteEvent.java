@@ -1,13 +1,14 @@
-package com.nttdata.bootcam.banca.transaction.dto;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package com.nttdata.bootcam.banca.transaction.dto.event;
 
 import lombok.Data;
-
+/**
+ * Objeto para la serializacion
+ * en el envio de la cuenta del cliente
+ * @author wrodrigr
+ */
 @Data
-public class TransactionPost {
-	
-//	@JsonProperty("identificador")
+public class CuentaClienteEvent {
+	private String id;
 	private String idClient;
 	private String idProduct;
 	private String typeTransaction;
@@ -15,4 +16,6 @@ public class TransactionPost {
 	private String amountTransaction;
 	private String currencyTransaction;
 	private String descriptionTransaction;
+	
+	private String mensaje;
 }

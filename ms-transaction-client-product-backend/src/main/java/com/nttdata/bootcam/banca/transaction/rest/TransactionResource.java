@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.bootcam.banca.transaction.dto.Transaction;
 import com.nttdata.bootcam.banca.transaction.dto.TransactionPost;
+import com.nttdata.bootcam.banca.transaction.dto.event.CuentaClienteEvent;
+import com.nttdata.bootcam.banca.transaction.infrastructure.TransactionServiceKafka;
 import com.nttdata.bootcam.banca.transaction.repository.TransactionRepository;
 import com.nttdata.bootcam.banca.transaction.repository.dao.TransactionDAO;
 
@@ -22,6 +24,9 @@ public class TransactionResource {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private TransactionServiceKafka transactionServiceKafka;
 
 	@GetMapping
 	public Flux getAllChange(Transaction transaction) {
@@ -39,6 +44,12 @@ public class TransactionResource {
 				.map(this::fromTransactionDaoToTransaction);
 	}
 
+	//3. Envio de las cuentas de los clientes
+	@PostMapping("/send")
+	public CuentaClienteEvent sendMessageCatalogo(@RequestBody CuentaClienteEvent message) {
+		return this.transactionServiceKafka.saveAccountClient(message) ;
+	}
+	
 	private TransactionPost fromTransactionToTransactionResponse(TransactionDAO transaction) {
 		TransactionPost trp = new TransactionPost();
 		trp.setIdClient(transaction.getIdClient());

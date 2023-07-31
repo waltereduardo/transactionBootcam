@@ -1,0 +1,26 @@
+server:
+  port: 8083
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://ingwaltereduardo:BTFZ4v2qwbnNWByQ@clustertransaction.bxifyao.mongodb.net/bancatransactiondb?retryWrites=true&w=majority
+  kafka:
+    consumer:
+      group-id: my-group
+      bootstrap-servers: localhost:9092
+    producer:
+      properties:
+          spring:
+             json:
+                trusted:
+                    packages=com.nttdata.bootcam.banca.transaction.infrastructure.event
+order-request-topic: order-request-topic
+                         
+springdoc:
+    api-docs:
+      groups:
+        enabled: true
+      path: /swagger-doc/v3/api-docs
+    swagger-ui:
+      path: /swagger-doc/swagger-ui.html
