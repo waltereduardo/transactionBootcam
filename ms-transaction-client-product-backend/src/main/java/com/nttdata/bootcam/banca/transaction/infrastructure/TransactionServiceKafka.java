@@ -17,8 +17,6 @@ public class TransactionServiceKafka {
 
 	private final TransactionPublicService transactionPublicService;
 
-//	private final ClientEventsService clientEventsService;
-
 	private final MensajeCompra mensajeCompra;
 
 	public TransactionServiceKafka(TransactionPublicService transactionPublicService, MensajeCompra mensajeCompra) {
@@ -30,28 +28,16 @@ public class TransactionServiceKafka {
 	public CuentaClienteEvent saveAccountClient(CuentaClienteEvent cuentaClienteEvent) {
 		System.out.println("El producto solicita las cuentas" + cuentaClienteEvent);
 		if (Constantes.MSG_CUENTA_CLIENTE.equals(cuentaClienteEvent.getMensaje())) {
-//			ClientCreatedEventCompra verifyMsgCompra = new ClientCreatedEventCompra();
-//			BuyProductEvent bpe = new BuyProductEvent();
-//			bpe.setMensaje(Constantes.MSG_COMPRA);
-//			verifyMsgCompra.setData(bpe);
-//
-//			clientEventsService.consumerOrder(verifyMsgCompra);
-//			if (clientEventsService.verifyMsgOrdenCompra()) {
+
 			ClientCreatedEventCompra clientCreatedEventCompra = new ClientCreatedEventCompra();
 			BuyProductEvent bpe = new BuyProductEvent();
 			bpe.setMensaje(Constantes.MSG_COMPRA);
 			bpe.setIdClient(cuentaClienteEvent.getIdClient());
 			bpe.setIdProduct(cuentaClienteEvent.getIdProduct());
 			clientCreatedEventCompra.setData(bpe);
-//			mensajeCompra.procesarMensaje(clientCreatedEventCompra);
-			if(mensajeCompra.procesarMensaje(clientCreatedEventCompra))
-					this.transactionPublicService.publishAccountClient(cuentaClienteEvent);
-//			}else {
-//				System.out.println("No hay ORDEN DE COMPRA");
-//				CuentaClienteEvent cuentaClienteEventE = new CuentaClienteEvent();
-//				cuentaClienteEventE.setMensaje("Sin datos. NO HAY ORDEN DE COMPRA");
-//				cuentaClienteEvent = cuentaClienteEventE;
-//			}
+
+			if (mensajeCompra.procesarMensaje(clientCreatedEventCompra))
+				this.transactionPublicService.publishAccountClient(cuentaClienteEvent);
 
 		} else {
 			System.out.println("Mensaje incorrecto");

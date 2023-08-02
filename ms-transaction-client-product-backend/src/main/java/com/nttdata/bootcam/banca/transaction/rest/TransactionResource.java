@@ -24,7 +24,7 @@ public class TransactionResource {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
-	
+
 	@Autowired
 	private TransactionServiceKafka transactionServiceKafka;
 
@@ -44,12 +44,12 @@ public class TransactionResource {
 				.map(this::fromTransactionDaoToTransaction);
 	}
 
-	//3. Envio de las cuentas de los clientes
+	// 3. Envio de las cuentas de los clientes
 	@PostMapping("/send")
 	public CuentaClienteEvent sendMessageCatalogo(@RequestBody CuentaClienteEvent message) {
-		return this.transactionServiceKafka.saveAccountClient(message) ;
+		return this.transactionServiceKafka.saveAccountClient(message);
 	}
-	
+
 	private TransactionPost fromTransactionToTransactionResponse(TransactionDAO transaction) {
 		TransactionPost trp = new TransactionPost();
 		trp.setIdClient(transaction.getIdClient());

@@ -4,7 +4,6 @@ import com.nttdata.bootcam.banca.transaction.dto.event.CuentaClienteEvent;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

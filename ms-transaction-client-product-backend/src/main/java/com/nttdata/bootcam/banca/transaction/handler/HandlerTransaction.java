@@ -20,7 +20,8 @@ public class HandlerTransaction {
 
 	public Mono<ServerResponse> getTransactionAll(ServerRequest request) {
 		Flux<TransactionDAO> transactionStream = transactionRepository.findAll();
-		return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(transactionStream, TransactionDAO.class);
+		return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(transactionStream,
+				TransactionDAO.class);
 	}
 
 	public Mono<ServerResponse> findTransactionById(ServerRequest request) {
@@ -31,7 +32,9 @@ public class HandlerTransaction {
 
 	public Mono<ServerResponse> saveTransaction(ServerRequest request) {
 		Mono<TransactionDAO> transactionMono = request.bodyToMono(TransactionDAO.class);
-		Mono<String> saveResponse = transactionMono.map(dto -> dto.getId() + ":" + dto.getIdClient()+":"+dto.getIdProduct()+":"+dto.getAmountTransaction()+":"+dto.getCurrencyTransaction()+":"+dto.getDescriptionTransaction()+":"+dto.getDateTransaction());
+		Mono<String> saveResponse = transactionMono.map(dto -> dto.getId() + ":" + dto.getIdClient() + ":"
+				+ dto.getIdProduct() + ":" + dto.getAmountTransaction() + ":" + dto.getCurrencyTransaction() + ":"
+				+ dto.getDescriptionTransaction() + ":" + dto.getDateTransaction());
 		return ServerResponse.ok().body(saveResponse, String.class);
 	}
 }

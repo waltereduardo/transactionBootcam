@@ -12,7 +12,6 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import com.nttdata.bootcam.banca.consulta.client.infraestructure.event.Event;
 
@@ -35,9 +34,9 @@ public class KafkaConsumerConfig {
 		configProps.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
 		configProps.put(JsonDeserializer.TRUSTED_PACKAGES,
 				"com.nttdata.bootcam.banca.consulta.client.infraestructure.event");
-		return new DefaultKafkaConsumerFactory<>(configProps , new StringDeserializer(), new JsonDeserializer<>(Event.class));
+		return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(),
+				new JsonDeserializer<>(Event.class));
 
-//		return new DefaultKafkaConsumerFactory<>(configProps);
 	}
 
 	@Bean
@@ -46,6 +45,5 @@ public class KafkaConsumerConfig {
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}
-
 
 }

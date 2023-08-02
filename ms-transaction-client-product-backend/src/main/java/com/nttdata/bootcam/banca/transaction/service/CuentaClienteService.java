@@ -1,7 +1,5 @@
 package com.nttdata.bootcam.banca.transaction.service;
 
-
-
 import org.springframework.stereotype.Service;
 
 import com.nttdata.bootcam.banca.transaction.contrato.CuentaClienteProductoRepository;
@@ -18,7 +16,12 @@ public class CuentaClienteService {
 		this.cuentaClienteProductoRepository = cuentaClienteProductoRepository;
 	}
 
-	public Mono<TransactionDAO> findCuentasClienteByIdClienteAndIdProducto(String idCliente, String idProducto){
+	public Mono<TransactionDAO> findCuentasClienteByIdClienteAndIdProducto(String idCliente, String idProducto) {
 		return cuentaClienteProductoRepository.findByIdClientAndIdProduct(idCliente, idProducto);
+	};
+
+	public Mono<TransactionDAO> registraCompraCliente(TransactionDAO transactionDAO) {
+		System.out.println("Mono<TransactionDAO> GUARDANDO::" + transactionDAO);
+		return cuentaClienteProductoRepository.save(transactionDAO);
 	};
 }
