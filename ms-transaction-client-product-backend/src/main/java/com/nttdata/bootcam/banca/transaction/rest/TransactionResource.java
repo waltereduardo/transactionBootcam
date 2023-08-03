@@ -29,7 +29,7 @@ public class TransactionResource {
 	private TransactionServiceKafka transactionServiceKafka;
 
 	@GetMapping
-	public Flux getAllChange(Transaction transaction) {
+	public Flux getAllChange() {
 		return transactionRepository.findAll().map(this::fromTransactionToTransactionResponse);
 	}
 

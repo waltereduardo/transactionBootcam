@@ -17,6 +17,8 @@ public class TransactionDAO {
 	private String idClient;
 	private String idProduct;
 	private String typeTransaction;
+	private String typeClient;
+	private String typeCount;
 	private Date dateTransaction;
 	private String amountTransaction;
 	private String currencyTransaction;
